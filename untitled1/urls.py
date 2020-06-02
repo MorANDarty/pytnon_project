@@ -22,5 +22,6 @@ from LinksShortenerApp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('urls/<str:url_hash>/', views.check_and_redirect)
+    path('urls/<str:url_hash>/', views.check_and_redirect),
+    path('analytics/', views.analytics),
 ]
