@@ -5,6 +5,22 @@
     <title>Analytics</title>
 </head>
 <body>
-
+<h1 style="margin: 16px">Links list:</h1>
+{% if links.count > 0 %}
+    <table>
+        <tr>
+            <th style="margin: 16px">Hash url</th>
+            <th style="margin: 16px">Original url</th>
+            <th style="margin: 16px">Click count</th>
+        </tr>
+        {% for link in links %}
+            <tr>
+                <td style="margin: 16px">{{ link.hash_url }},</td>
+                <td style="margin: 16px">   {{ link.url }},</td>
+                <td style="margin: 16px">   {{ link.click_count }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
 </body>
 </html>

@@ -1,18 +1,31 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <title>Home screen</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 </head>
+
 <body>
 
 <h1 style="margin: 16px">On this page u can shorten links</h1>
-<input style="margin: 16px" id="input_link_to_short">
-<button id="btn_short_link" style="margin: 16px">Short link</button>
-<h4 style="margin: 16px" id="shorten_link"></h4>
+<form method="post" action="create/">
+    {% csrf_token %}
+    <input type="text" style="margin: 16px" id="input_link_to_short" name="url_field">
+    <input type="submit" value="Short link" id="btn_short_link" style="margin: 16px">
+
+</form>
+
+<h4 style="margin: 16px" id="shorten_link">{{ hash_url }}</h4>
+
 <button id="btn_go_to_analytics" style="margin: 16px">Go to analytics</button>
+
+<h4 style="margin: 16px" id="message">{{ message }}</h4>
+
 </body>
 </html>

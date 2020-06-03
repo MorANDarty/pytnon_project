@@ -10,4 +10,6 @@ hashids = Hashids(salt=HASH_SALT, alphabet=ALPHABET)
 
 
 def get_hash_url(url):
+    hash_url = hashids.encode(url)
+    print(hash_url)
     return hashids.encode(url)

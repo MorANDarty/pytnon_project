@@ -20,7 +20,11 @@ def get_analytics():
 
 
 def is_have_that_link(hash_url):
-    link = Link.objects.get(hash_url=hash_url)
+    try:
+        link = Link.objects.get(hash_url=hash_url)
+    except Link.DoesNotExist:
+        link = None
+
     if link is None:
         return False
     else:
@@ -35,8 +39,12 @@ def get_url_for_redirect_by_hash(hash_url):
 
 
 def save_new_url(url):
-    if Link.objects.get(url=url) is None:
-        Link.objects.create(url=url, hash_url=get_hash_url)
+    try:
+        link = Link.objects.get(url=url)
+    except Link.DoesNotExist:
+        link = None
+    if link is None:
+        Link.objects.create(url=url, hash_url=get_hash_url(url))
         return True
     else:
         return False
@@ -46,4 +54,21 @@ def update_click_count(hash_url):
     if is_have_that_link(hash_url) is True:
         Link.objects.all().filter(hash_url=hash_url).update(click_count=F("click_count") + 1)
         return True
-    else: return  False
+    else:
+        return False
+
+
+def delete_url(hash_url):
+    if is_have_that_link(hash_url) is True:
+        Link.objects.filter(hash_url=hash_url).delete()
+        return True
+    else:
+        return False
+
+
+def delete_all_links():
+    try:
+        Link.objects.all().delete()
+        return True
+    except Link.DoesNotExist:
+        return False
