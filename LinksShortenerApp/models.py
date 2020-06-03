@@ -38,6 +38,18 @@ def get_url_for_redirect_by_hash(hash_url):
         return None
 
 
+def get_hash_by_url(url):
+    try:
+        link = Link.objects.get(url=url)
+    except Link.DoesNotExist:
+        link = None
+
+    if link is None:
+        return None
+    else:
+        return link.hash_url
+
+
 def save_new_url(url):
     try:
         link = Link.objects.get(url=url)

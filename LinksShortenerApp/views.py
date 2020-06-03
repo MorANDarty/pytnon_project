@@ -4,12 +4,27 @@ from django.shortcuts import render
 
 from django.http import HttpResponse, HttpResponseRedirect
 
-from LinksShortenerApp.models import get_analytics, get_url_for_redirect_by_hash, save_new_url, delete_all_links
+from LinksShortenerApp.models import get_analytics, get_url_for_redirect_by_hash, save_new_url, delete_all_links, \
+    get_hash_by_url, update_click_count
 from LinksShortenerApp.utils.hash import get_hash_url
 
 
 def home(request):
-    return render(request, "home_screen.html")
+    if request.method == "POST":
+        url = request.POST.get("url_field")
+        print(url)
+        if url is None:
+            return render(request, "home_screen.html")
+        else:
+            resp_from_db = save_new_url(url)
+            if resp_from_db is True:
+                return render(request, "home_screen.html",
+                              {"hash_url": request.get_host() + "/urls/" + get_hash_by_url(url)})
+            else:
+                return render(request, "home_screen.html",
+                              {"hash_url": request.get_host() + "/urls/" + get_hash_by_url(url)})
+    else:
+        return render(request, "home_screen.html")
 
 
 def check_and_redirect(request, url_hash):
@@ -17,7 +32,7 @@ def check_and_redirect(request, url_hash):
     if url is None:
         return HttpResponse("404 error, invalid hash link")
     else:
-
+        update_click_count(url_hash)
         return HttpResponseRedirect(url)
 
 
@@ -36,7 +51,8 @@ def create_url_hash(request):
         if resp_from_db is True:
             return render(request, "home_screen.html", {"hash_url": request.get_host() + "/urls/" + get_hash_url(url)})
         else:
-            return render(request, "home_screen.html", {"hash_url": request.get_host() + "/urls/" + get_hash_url(url)})
+            return render(request, "home_screen.html",
+                          {"hash_url": request.get_host() + "/urls/" + get_hash_by_url(url)})
 
 
 def delete_all(request):
