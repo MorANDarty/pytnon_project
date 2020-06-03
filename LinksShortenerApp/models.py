@@ -70,10 +70,23 @@ def update_click_count(hash_url):
         return False
 
 
-def delete_url(hash_url):
-    if is_have_that_link(hash_url) is True:
-        Link.objects.filter(hash_url=hash_url).delete()
+def delete_url(url):
+    if is_have_this_url(url) is True:
+        Link.objects.filter(url=url).delete()
         return True
+    else:
+        return False
+
+
+def is_have_this_url(url):
+    try:
+        link = Link.objects.get(url=url)
+    except Link.DoesNotExist:
+        link = None
+
+    if link is not None:
+        return True
+
     else:
         return False
 

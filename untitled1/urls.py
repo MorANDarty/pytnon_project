@@ -24,7 +24,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('urls/<str:url_hash>/', views.check_and_redirect),
     path('analytics/', views.analytics),
-    path('create/', views.create_url_hash),
     path('delete_all/', views.delete_all),
 
 ]
