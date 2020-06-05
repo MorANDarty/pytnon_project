@@ -56,3 +56,7 @@ def delete_url(request, url_hash):
             return HttpResponseRedirect("/analytics")
         else:
             return HttpResponse("404 error, invalid hash link")
+
+
+def err404(request):
+    return HttpResponse("404 ERROR")

@@ -14,46 +14,58 @@
 <body>
 
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+
     <h5 class="my-0 mr-md-auto font-weight-normal">Links short app</h5>
+
     <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="/">Short</a>
         <a class="p-2 text-dark" href="/analytics">Analytics</a>
     </nav>
-</div>
 
+</div>
 
 {% if links.count > 0 %}
     <h1 style="margin: 16px">Links list:</h1>
 
     <div class="container-fluid" style="margin-bottom: 1rem">
+
         <div class="row">
-            <div class="col-7">
-                Hash-URL
-            </div>
+            <div class="col-7">Hash-URL</div>
             <div class="col-3">Original URL</div>
             <div class="col-1">Clicks count</div>
         </div>
+
     </div>
 
     {% for link in links %}
         <div class="container-fluid" style="margin-top: 1rem; margin-bottom: 1rem">
+
             <div class="row">
+
                 <div class="col-7">
-                    <a
-                            href="http://127.0.0.1:8000/urls/{{ link.hash_url }}">127.0.0.1:8000/urls/{{ link.hash_url }}
-                    </a>
+                    <a href="http://127.0.0.1:8000/urls/{{ link.hash_url }}">127.0.0.1:8000/urls/{{ link.hash_url }}</a>
                 </div>
+
                 <div class="col-3">   {{ link.url }}</div>
+
                 <div class="col-1">   {{ link.click_count }}</div>
+
                 <div class="col-1">
+
                     <form action="/delete/{{ link.hash_url }}" method="post">
                         {% csrf_token %}
                         <button class="btn btn-outline-primary" type="submit">Delete</button>
                     </form>
+
                 </div>
+
             </div>
+
         </div>
+
     {% endfor %}
+
 {% endif %}
+
 </body>
 </html>
