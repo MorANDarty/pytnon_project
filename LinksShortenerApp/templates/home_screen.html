@@ -6,31 +6,87 @@
 
     <meta charset="UTF-8">
     <title>Home screen</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <style>
+
+        .starter-template {
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
+
+        .form-signin .form-control {
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    </style>
 
 </head>
 
 <body>
 
-<h1 style="margin: 16px">On this page u can shorten links</h1>
-<form method="post" action="/">
-    {% csrf_token %}
-    <input type="text" style="margin: 16px" id="input_link_to_short" name="url_field">
-    <input type="submit" value="Short link" id="btn_short_link" style="margin: 16px">
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Links short app</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/">Short</a>
+        <a class="p-2 text-dark" href="/analytics">Analytics</a>
+    </nav>
+</div>
 
-</form>
+<div class="starter-template">
 
-<a href="{{ hash_url }}/" style="margin: 16px" id="shorten_link">{{ hash_url }}</a>
+    <div class="form-signin">
 
-<form method="get" action="/analytics">
-    <button id="btn_go_to_analytics" style="margin: 16px" type="submit">Go to analytics</button>
-</form>
+        <h1 style="margin: 16px">Let's short!</h1>
+        <form method="post" action="/">
+            {% csrf_token %}
+            <div class="row">
+                <input class="form-control" name="url_field">
+            </div>
+            <div class="row">
+                <input type="submit" value="Short link" class="btn btn-lg btn-primary btn-block" style="margin-top: 1rem">
+            </div>
 
-<h4 style="margin: 16px" id="message">{{ message }}</h4>
+        </form>
 
+    </div>
+
+    <a href="{{ hash_url }}/" style="margin: 16px" id="shorten_link">{{ hash_url }}</a>
+</div>
 </body>
 </html>
