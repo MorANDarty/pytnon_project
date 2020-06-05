@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('urls/<str:url_hash>/', views.check_and_redirect),
-    path('analytics/', views.analytics),
+    path('analytics', views.analytics),
     path('delete/<str:url_hash>', views.delete_url),
-    re_path(r'^[a-bA-B0-9/]*', views.err404),
+
 ]
