@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Analytics</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+
 </head>
 <body>
 <h1 style="margin: 16px">Links list:</h1>
@@ -15,9 +21,19 @@
         </tr>
         {% for link in links %}
             <tr>
-                <td style="margin: 16px">{{ link.hash_url }},</td>
+                <td style="margin: 16px">
+                    <a
+                            href="http://127.0.0.1:8000/urls/{{ link.hash_url }}">127.0.0.1:8000/urls/{{ link.hash_url }}
+                    </a>,
+                </td>
                 <td style="margin: 16px">   {{ link.url }},</td>
                 <td style="margin: 16px">   {{ link.click_count }}</td>
+                <td style="margin: 16px">
+                    <form action="/delete/{{ link.hash_url }}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
     </table>

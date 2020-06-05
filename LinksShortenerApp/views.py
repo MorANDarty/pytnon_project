@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
 from LinksShortenerApp.models import get_analytics, get_url_for_redirect_by_hash, save_new_url, delete_all_links, \
-    get_hash_by_url, update_click_count, delete_url
+    get_hash_by_url, update_click_count, delete_link
 
 
 def home(request):
@@ -19,7 +19,7 @@ def home(request):
         else:
             save_new_url(url)
             return render(request, "home_screen.html",
-                          {"hash_url": request.get_host() + "/urls/" + get_hash_by_url(url)})
+                          {"hash_url": "/urls/" + get_hash_by_url(url)})
 
     else:
         return render(request, "home_screen.html")
@@ -37,6 +37,7 @@ def check_and_redirect(request, url_hash):
 
 def analytics(request):
     links = get_analytics()
+
     return render(request, "analytics_screen.html", {"links": links})
 
 
@@ -48,7 +49,10 @@ def delete_all(request):
         return HttpResponse("Error on delete")
 
 
-def delete_url_by_admin(request):
+def delete_url(request, url_hash):
     if request.method == "POST":
-        url = request.POST.get("url")
-        resp = delete_url(url)
+        resp = delete_link(url_hash)
+        if resp is True:
+            return HttpResponseRedirect("/analytics")
+        else:
+            return HttpResponse("404 error, invalid hash link")
