@@ -1,11 +1,11 @@
 import string
 
-import hashlib, uuid
+import hashlib
 
+SALT = "dkfj34fjfd949rwf9f39ff9ef2092jfd"
 
 def get_hash_url(url):
-    salt = uuid.uuid4().hex
-    hash_url = hashlib.sha256(str(url + salt).encode('utf-8')).hexdigest()
+    hash_url = hashlib.sha256(str(url + SALT).encode('utf-8')).hexdigest()
     if hash_url is None:
         print("hash url is None")
     else:
